@@ -6,6 +6,16 @@ Built at *Build with Agora*, Bengaluru, Nov 21, 2026. Track 3: AI Agents That Ge
 
 ---
 
+## Screenshots
+
+| Your AI team, on Today | Agent Studio: "What should your new agent do?" |
+|---|---|
+| ![Today](screenshots/today-desktop.png) | ![Agent Studio](screenshots/studio-desktop.png) |
+| **Building an agent live** | **The agent's home: Murf voice, talk to it, boards, routines** |
+| ![Building](screenshots/studio-building-desktop.png) | ![Dairy Manager](screenshots/agent-desktop.png) |
+
+*Screens use sample data.*
+
 ## The problem
 
 AI can now do real work: chase payments, find deals, run a small business's admin, fix code. But:
