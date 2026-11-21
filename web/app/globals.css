@@ -1,0 +1,1050 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Slates design tokens. Warm off-white canvas, charcoal ink, one lime
+   accent. Every colour is a CSS variable so light/dark switch instantly.
+   Theme is set on <html data-theme="light|dark"> by the inline script in
+   app/layout.tsx (System / Light / Dark lives in Settings).
+------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --page: #f1f2ec;
+  --surface: #fbfbf8;
+  --muted: #e6e8e0;
+  --sage: #e2e5d3;
+  --ink: #1f2a26;
+  --ink-2: #48524d;
+  --ink-3: #7b837e;
+  --ink-4: #a8ada6;
+  --line: rgb(31 42 38 / 0.08);
+  --hero: #1f2a26;
+  --on-hero: #f1f2ec;
+  --on-hero-2: #a3aca7;
+  --hero-chip: rgb(255 255 255 / 0.09);
+  --accent: #e1f48a;
+  --on-accent: #1f2a26;
+  --olive: #7e8f48;
+  --new: #1f9d55;
+  --tint-1: #fdf3c4;
+  --tint-2: #e3f1d0;
+  --tint-3: #dceefa;
+  --tint-4: #f6e2ef;
+  --tint-5: #efe6d8;
+  --btn: #1f2a26;
+  --on-btn: #f4f5f0;
+  --tab: #fbfbf8;
+  --tab-active: #1f2a26;
+  --on-tab-active: #f1f2ec;
+  --shadow-card: 0 1px 2px rgb(31 42 38 / 0.04), 0 10px 30px -18px rgb(31 42 38 / 0.18);
+  /* Charts: validated categorical order (dataviz validator, light surface #fbfbf8). */
+  --chart-1: #4a7a20;
+  --chart-2: #3a78c9;
+  --chart-3: #d0691f;
+  --chart-4: #7a55c2;
+  --chart-hl: #7e8f48;
+  --chart-grid: rgb(31 42 38 / 0.08);
+  --chart-base: rgb(31 42 38 / 0.22);
+  --chart-on: #ffffff;
+  --shadow-float: 0 2px 6px rgb(31 42 38 / 0.06), 0 18px 40px -16px rgb(31 42 38 / 0.25);
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 66px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0d1210;
+  --surface: #161d1a;
+  --muted: #212a26;
+  --sage: #232b22;
+  --ink: #eceee7;
+  --ink-2: #b9bfb8;
+  --ink-3: #868e88;
+  --ink-4: #59615c;
+  --line: rgb(236 238 231 / 0.08);
+  --hero: #1b2420;
+  --on-hero: #eceee7;
+  --on-hero-2: #8f9893;
+  --hero-chip: rgb(255 255 255 / 0.07);
+  --olive: #a6b867;
+  --new: #3ddc84;
+  --tint-1: #3a3622;
+  --tint-2: #26342a;
+  --tint-3: #22303a;
+  --tint-4: #36283a;
+  --tint-5: #33302a;
+  --btn: #e1f48a;
+  --on-btn: #1f2a26;
+  --tab: #161d1a;
+  --tab-active: #e1f48a;
+  --on-tab-active: #1f2a26;
+  --shadow-card: 0 0 0 1px rgb(236 238 231 / 0.06);
+  /* Validated against the dark surface #161d1a. */
+  --chart-1: #7f9f3a;
+  --chart-2: #4a84d0;
+  --chart-3: #d2702b;
+  --chart-4: #8d72d8;
+  --chart-hl: #e1f48a;
+  --chart-grid: rgb(236 238 231 / 0.08);
+  --chart-base: rgb(236 238 231 / 0.2);
+  --chart-on: #10140f;
+  --shadow-float: 0 0 0 1px rgb(236 238 231 / 0.07), 0 20px 40px -16px rgb(0 0 0 / 0.7);
+}
+
+/* No-JS fallback: follow the system. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --page: #0d1210;
+    --surface: #161d1a;
+    --muted: #212a26;
+    --sage: #232b22;
+    --ink: #eceee7;
+    --ink-2: #b9bfb8;
+    --ink-3: #868e88;
+    --ink-4: #59615c;
+    --line: rgb(236 238 231 / 0.08);
+    --hero: #1b2420;
+    --btn: #e1f48a;
+    --on-btn: #1f2a26;
+    --tab: #161d1a;
+    --tab-active: #e1f48a;
+    --on-tab-active: #1f2a26;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', monospace;
+
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-sage: var(--sage);
+  --color-fg: var(--ink);
+  --color-fg-2: var(--ink-2);
+  --color-fg-3: var(--ink-3);
+  --color-fg-4: var(--ink-4);
+  --color-line: var(--line);
+  --color-hero: var(--hero);
+  --color-on-hero: var(--on-hero);
+  --color-on-hero-2: var(--on-hero-2);
+  --color-hero-chip: var(--hero-chip);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-olive: var(--olive);
+  --color-new: var(--new);
+  --color-btn: var(--btn);
+  --color-on-btn: var(--on-btn);
+  --color-tab: var(--tab);
+  --color-tab-active: var(--tab-active);
+  --color-on-tab-active: var(--on-tab-active);
+
+  --radius-card: 24px;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--page);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100dvh;
+  transition: background-color 200ms ease;
+}
+
+/* Controls: instant taps, no long-press text selection or callout. Content stays selectable. */
+button,
+a,
+summary,
+[role='button'],
+[role='checkbox'],
+[role='tab'] {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+main {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ------------------------------------------------------------------ Surfaces */
+@utility card {
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+/* Legacy names kept so older markup renders in the new language. */
+@utility glass {
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+@utility glass-strong {
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+}
+
+/* Dark feature card. Remaps the ink tokens so anything rendered inside reads light-on-dark. */
+@utility hero {
+  border-radius: 28px;
+  background: var(--hero);
+  color: var(--on-hero);
+  box-shadow: var(--shadow-card);
+  --ink: var(--on-hero);
+  --ink-2: #cdd3ce;
+  --ink-3: var(--on-hero-2);
+  --ink-4: #66716b;
+  --line: rgb(255 255 255 / 0.1);
+  --muted: var(--hero-chip);
+  --surface: #28322d;
+  --btn: var(--accent);
+  --on-btn: var(--on-accent);
+}
+
+@utility sage-card {
+  border-radius: var(--radius-card);
+  background: var(--sage);
+}
+
+@utility note {
+  display: flex;
+  gap: 0.6rem;
+  border-radius: 16px;
+  background: var(--muted);
+  padding: 0.8rem 0.95rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------ Buttons */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 48px;
+  padding: 0 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition:
+    transform 160ms var(--ease-out-quint),
+    background-color 160ms,
+    opacity 160ms;
+  &:active {
+    transform: scale(0.97);
+  }
+  &:disabled {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ink-3);
+    outline-offset: 2px;
+  }
+}
+
+@utility btn-primary {
+  background: var(--btn);
+  color: var(--on-btn);
+}
+
+@utility btn-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Soft button (the old "glass" name, kept for markup compatibility). */
+@utility btn-glass {
+  background: var(--muted);
+  color: var(--ink);
+}
+
+@utility btn-icon {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+}
+
+@utility btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-glass:hover {
+    filter: brightness(0.97);
+  }
+  .btn-primary:hover,
+  .btn-accent:hover {
+    filter: brightness(1.06);
+  }
+  .row-hover:hover {
+    background: var(--muted);
+  }
+}
+
+/* Inputs: 16px so iOS never zooms. */
+@utility field {
+  width: 100%;
+  height: 50px;
+  padding: 0 1rem;
+  border-radius: 16px;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition:
+    border-color 160ms,
+    box-shadow 160ms;
+  &::placeholder {
+    color: var(--ink-4);
+  }
+  &:focus {
+    outline: none;
+    border-color: var(--ink-3);
+    box-shadow: 0 0 0 4px var(--muted);
+  }
+}
+
+@utility kicker {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@utility hairline {
+  border-color: var(--line);
+}
+
+@utility pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 26px;
+  padding: 0 0.7rem;
+  flex: none;
+  white-space: nowrap;
+  border-radius: 999px;
+  background: var(--muted);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* Tone dots: urgency without loud colour. */
+.tone {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+.tone-neutral {
+  background: var(--ink-4);
+}
+.tone-good {
+  background: var(--olive);
+}
+.tone-warn {
+  background: var(--ink-2);
+}
+.tone-bad {
+  background: var(--accent);
+  box-shadow: 0 0 0 1.5px var(--ink);
+}
+
+/* ------------------------------------------------------------------ Motion */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 520ms var(--ease-out-quint) both;
+}
+.rise-2 {
+  animation: rise 520ms 60ms var(--ease-out-quint) both;
+}
+.rise-3 {
+  animation: rise 520ms 120ms var(--ease-out-quint) both;
+}
+
+/* Lists and grids: items fade up in a short stagger (delay set inline, capped). */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+}
+.enter {
+  animation: enter 360ms var(--ease-out-quint) both;
+}
+
+/* Cards that open something: press in on touch, lift a touch on hover with a mouse. */
+.press {
+  transition:
+    transform 180ms var(--ease-out-quint),
+    box-shadow 180ms var(--ease-out-quint);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.press:active {
+  transform: scale(0.975);
+}
+@media (hover: hover) and (pointer: fine) {
+  .press:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-float);
+  }
+  .press:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Dropdown lists (popover): grow from the button, fade out on close. */
+[popover][role='listbox'] {
+  transform-origin: top center;
+  transition:
+    opacity 160ms var(--ease-out-quint),
+    transform 200ms var(--ease-out-quint),
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.97);
+}
+[popover][role='listbox']:popover-open {
+  opacity: 1;
+  transform: none;
+}
+@starting-style {
+  [popover][role='listbox']:popover-open {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+}
+
+/* Sheets: the backdrop fades in with the panel. */
+dialog::backdrop {
+  transition:
+    opacity 260ms var(--ease-out-quint),
+    overlay 260ms allow-discrete,
+    display 260ms allow-discrete;
+  opacity: 1;
+}
+@starting-style {
+  dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Collapsible sections open smoothly where supported. */
+details::details-content {
+  transition:
+    height 260ms var(--ease-out-quint),
+    content-visibility 260ms allow-discrete;
+  height: 0;
+  overflow: clip;
+}
+details[open]::details-content {
+  height: auto;
+}
+:root {
+  interpolate-size: allow-keywords;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Native-stack navigation: forward slides in from the right, back from the left. */
+::view-transition-old(.nav-forward) {
+  --slide-offset: -48px;
+  animation:
+    140ms ease-in both vt-fade reverse,
+    360ms var(--ease-out-quint) both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 64px;
+  animation:
+    200ms ease-out 100ms both vt-fade,
+    380ms var(--ease-out-quint) both vt-slide;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 64px;
+  animation:
+    140ms ease-in both vt-fade reverse,
+    360ms var(--ease-out-quint) both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -48px;
+  animation:
+    200ms ease-out 100ms both vt-fade,
+    380ms var(--ease-out-quint) both vt-slide;
+}
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes vt-slide {
+  from {
+    translate: var(--slide-offset) 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ Markdown */
+.prose-slate {
+  color: var(--ink-2);
+  line-height: 1.65;
+  font-size: 0.9375rem;
+}
+.prose-slate h1,
+.prose-slate h2,
+.prose-slate h3 {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 1.2em 0 0.4em;
+}
+.prose-slate h1 {
+  font-size: 1.35rem;
+}
+.prose-slate h2 {
+  font-size: 1.15rem;
+}
+.prose-slate h3 {
+  font-size: 1rem;
+}
+.prose-slate p {
+  margin: 0.5em 0;
+}
+.prose-slate ul,
+.prose-slate ol {
+  padding-left: 1.2em;
+  margin: 0.5em 0;
+}
+.prose-slate ul {
+  list-style: disc;
+}
+.prose-slate ol {
+  list-style: decimal;
+}
+.prose-slate li::marker {
+  color: var(--ink-4);
+}
+.prose-slate a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--ink-4);
+  text-underline-offset: 3px;
+}
+.prose-slate strong {
+  color: var(--ink);
+}
+.prose-slate code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: var(--muted);
+}
+.prose-slate pre {
+  overflow-x: auto;
+  padding: 0.9em 1em;
+  border-radius: 14px;
+  background: var(--muted);
+}
+.prose-slate pre code {
+  padding: 0;
+  background: none;
+}
+.prose-slate blockquote {
+  border-left: 2px solid var(--line);
+  padding-left: 1em;
+  color: var(--ink-3);
+}
+.prose-slate table {
+  width: 100%;
+  font-size: 0.875rem;
+}
+.prose-slate th,
+.prose-slate td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.4em 0.5em;
+  text-align: left;
+}
+.prose-slate > :first-child {
+  margin-top: 0;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+
+
+
+/* Ask on phones: one fixed screen. Header and input stay put; only the messages scroll. */
+@media (max-width: 767px) {
+  .ask-screen {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 20px - var(--safe-top) - var(--tabbar-h) - 40px - var(--safe-bottom));
+  }
+  .ask-scroll {
+    scrollbar-width: none;
+    mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
+  }
+}
+
+/* Today scrolls as one page: no boxes that scroll inside it (they trapped the swipe and the page felt frozen). */
+.today-scroll {
+  scrollbar-width: none;
+  mask-image: linear-gradient(to bottom, transparent 0, black 10px, black calc(100% - 18px), transparent 100%);
+}
+.today-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Privacy mode: blur values everywhere they appear (toggle on Home / Settings). */
+.privacy-on [data-sensitive] {
+  filter: blur(7px);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.privacy-on [data-sensitive-chart] {
+  filter: blur(9px);
+  pointer-events: none;
+}
+
+/* Apps launcher: the panel rises from the tab bar, icons pop in one after another. */
+@keyframes launcher-panel-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.94); transform-origin: 90% 100%; }
+  to { opacity: 1; transform: none; transform-origin: 90% 100%; }
+}
+@keyframes launcher-item-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.7); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes launcher-fade { from { opacity: 0; } to { opacity: 1; } }
+.launcher-panel { animation: launcher-panel-in 260ms cubic-bezier(0.2, 0.9, 0.25, 1.1) both; }
+.launcher-item { animation: launcher-item-in 300ms cubic-bezier(0.2, 0.9, 0.25, 1.2) both; }
+.launcher-backdrop { animation: launcher-fade 200ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .launcher-panel, .launcher-item, .launcher-backdrop { animation: none; }
+}
+
+/* Home with pinned blocks on a larger screen scrolls like a normal page: the brief card sizes to its content.
+   (On phones Home is always one screen; pinned blocks become a row of pins.) */
+@media (min-width: 768px) {
+  .home-flow .today-scroll {
+    flex: none;
+    max-height: 38dvh;
+  }
+  .home-flow .home-since {
+    max-height: none;
+  }
+}
+
+/* Palettes: generated; each sets every token for light and dark. Default (lime) is :root. */
+:root[data-palette='ocean'] {
+  --page: #ecf0f2;
+  --surface: #f8fafb;
+  --muted: #e0e5e8;
+  --sage: #d3dfe5;
+  --ink: #1f262a;
+  --ink-2: #484f52;
+  --ink-3: #7b8083;
+  --ink-4: #a6abad;
+  --line: rgb(31 38 42 / 0.08);
+  --hero: #1f262a;
+  --on-hero: #ecf0f2;
+  --on-hero-2: #a3a9ac;
+  --hero-chip: rgb(255 255 255 / 0.09);
+  --accent: #9fdcf5;
+  --on-accent: #1f262a;
+  --olive: #2a7898;
+  --btn: #1f262a;
+  --on-btn: #f0f3f5;
+  --tab: #f8fafb;
+  --tab-active: #1f262a;
+  --on-tab-active: #ecf0f2;
+  --chart-hl: #2a7898;
+}
+:root[data-palette='ocean'][data-theme='dark'] {
+  --page: #0d1012;
+  --surface: #161b1d;
+  --muted: #21272a;
+  --sage: #22282b;
+  --ink: #e7ecee;
+  --ink-2: #b8bdbf;
+  --ink-3: #868b8e;
+  --ink-4: #595e61;
+  --line: rgb(231 236 238 / 0.08);
+  --hero: #1b2124;
+  --on-hero: #e7ecee;
+  --on-hero-2: #8f9598;
+  --hero-chip: rgb(255 255 255 / 0.07);
+  --accent: #8fd3f0;
+  --on-accent: #10171a;
+  --olive: #8ac3db;
+  --btn: #8fd3f0;
+  --on-btn: #10171a;
+  --tab: #161b1d;
+  --tab-active: #8fd3f0;
+  --on-tab-active: #10171a;
+  --chart-hl: #8fd3f0;
+}
+:root[data-palette='sunset'] {
+  --page: #f2eeec;
+  --surface: #fbf9f8;
+  --muted: #e8e2e0;
+  --sage: #e5d8d3;
+  --ink: #2a221f;
+  --ink-2: #524b48;
+  --ink-3: #837d7b;
+  --ink-4: #ada8a6;
+  --line: rgb(42 34 31 / 0.08);
+  --hero: #2a221f;
+  --on-hero: #f2eeec;
+  --on-hero-2: #aca6a3;
+  --hero-chip: rgb(255 255 255 / 0.09);
+  --accent: #ffc7a1;
+  --on-accent: #2a221f;
+  --olive: #a5541d;
+  --btn: #2a221f;
+  --on-btn: #f5f2f0;
+  --tab: #fbf9f8;
+  --tab-active: #2a221f;
+  --on-tab-active: #f2eeec;
+  --chart-hl: #a5541d;
+}
+:root[data-palette='sunset'][data-theme='dark'] {
+  --page: #120e0d;
+  --surface: #1d1816;
+  --muted: #2a2421;
+  --sage: #2b2522;
+  --ink: #eee9e7;
+  --ink-2: #bfbab8;
+  --ink-3: #8e8886;
+  --ink-4: #615b59;
+  --line: rgb(238 233 231 / 0.08);
+  --hero: #241e1b;
+  --on-hero: #eee9e7;
+  --on-hero-2: #98928f;
+  --hero-chip: rgb(255 255 255 / 0.07);
+  --accent: #ffb98c;
+  --on-accent: #1a1310;
+  --olive: #e8a77d;
+  --btn: #ffb98c;
+  --on-btn: #1a1310;
+  --tab: #1d1816;
+  --tab-active: #ffb98c;
+  --on-tab-active: #1a1310;
+  --chart-hl: #ffb98c;
+}
+:root[data-palette='lavender'] {
+  --page: #eeecf2;
+  --surface: #f9f8fb;
+  --muted: #e3e0e8;
+  --sage: #dad3e5;
+  --ink: #231f2a;
+  --ink-2: #4c4852;
+  --ink-3: #7e7b83;
+  --ink-4: #a9a6ad;
+  --line: rgb(35 31 42 / 0.08);
+  --hero: #231f2a;
+  --on-hero: #eeecf2;
+  --on-hero-2: #a6a3ac;
+  --hero-chip: rgb(255 255 255 / 0.09);
+  --accent: #d6caff;
+  --on-accent: #231f2a;
+  --olive: #3c1da5;
+  --btn: #231f2a;
+  --on-btn: #f2f0f5;
+  --tab: #f9f8fb;
+  --tab-active: #231f2a;
+  --on-tab-active: #eeecf2;
+  --chart-hl: #3c1da5;
+}
+:root[data-palette='lavender'][data-theme='dark'] {
+  --page: #0f0d12;
+  --surface: #19161d;
+  --muted: #24212a;
+  --sage: #25222b;
+  --ink: #eae7ee;
+  --ink-2: #bbb8bf;
+  --ink-3: #89868e;
+  --ink-4: #5c5961;
+  --line: rgb(234 231 238 / 0.08);
+  --hero: #1e1b24;
+  --on-hero: #eae7ee;
+  --on-hero-2: #928f98;
+  --hero-chip: rgb(255 255 255 / 0.07);
+  --accent: #cbbcff;
+  --on-accent: #14101a;
+  --olive: #957de8;
+  --btn: #cbbcff;
+  --on-btn: #14101a;
+  --tab: #19161d;
+  --tab-active: #cbbcff;
+  --on-tab-active: #14101a;
+  --chart-hl: #cbbcff;
+}
+:root[data-palette='mono'] {
+  --page: #efefef;
+  --surface: #fafafa;
+  --muted: #e4e4e4;
+  --sage: #dcdcdc;
+  --ink: #242424;
+  --ink-2: #4d4d4d;
+  --ink-3: #7f7f7f;
+  --ink-4: #aaaaaa;
+  --line: rgb(36 36 36 / 0.08);
+  --hero: #242424;
+  --on-hero: #efefef;
+  --on-hero-2: #a8a8a8;
+  --hero-chip: rgb(255 255 255 / 0.09);
+  --accent: #d9d9d9;
+  --on-accent: #242424;
+  --olive: #555555;
+  --btn: #242424;
+  --on-btn: #f2f2f2;
+  --tab: #fafafa;
+  --tab-active: #242424;
+  --on-tab-active: #efefef;
+  --chart-hl: #555555;
+}
+:root[data-palette='mono'][data-theme='dark'] {
+  --page: #101010;
+  --surface: #1a1a1a;
+  --muted: #262626;
+  --sage: #272727;
+  --ink: #ebebeb;
+  --ink-2: #bcbcbc;
+  --ink-3: #8a8a8a;
+  --ink-4: #5d5d5d;
+  --line: rgb(235 235 235 / 0.08);
+  --hero: #202020;
+  --on-hero: #ebebeb;
+  --on-hero-2: #939393;
+  --hero-chip: rgb(255 255 255 / 0.07);
+  --accent: #ececec;
+  --on-accent: #151515;
+  --olive: #bdbdbd;
+  --btn: #ececec;
+  --on-btn: #151515;
+  --tab: #1a1a1a;
+  --tab-active: #ececec;
+  --on-tab-active: #151515;
+  --chart-hl: #ececec;
+}
+
+/* Notes are for reading: bigger type, calmer rhythm, a comfortable line length. */
+.prose-note {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  max-width: 68ch;
+}
+.prose-note h1 { font-size: 1.5rem; margin-top: 1.5em; }
+.prose-note h2 { font-size: 1.25rem; margin-top: 1.5em; }
+.prose-note h3 { font-size: 1.075rem; margin-top: 1.3em; }
+.prose-note p { margin: 0.75em 0; }
+.prose-note li { margin: 0.3em 0; }
+.prose-note blockquote {
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  margin: 1em 0;
+  font-style: normal;
+}
+.prose-note hr { border: 0; height: 1px; background: var(--line); margin: 1.6em 0; }
+.prose-note a { text-decoration-thickness: 1px; }
+.prose-note .note-img { margin: 1em 0; }
+.prose-note p:has(> .note-img:only-child) { margin: 0; }
+/* Checklists: a round tappable box, done items fade and strike through. */
+.prose-note ul:has(> .task-item) { list-style: none; padding-left: 0; }
+.prose-note .task-item { display: flex; gap: 0.65em; align-items: flex-start; }
+.prose-note .task-item > div > p { margin: 0; }
+.prose-note .task-box {
+  margin-top: 0.22em;
+  display: grid;
+  place-items: center;
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+  border-radius: 999px;
+  border-width: 1.5px;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+.prose-note .task-box:active { transform: scale(0.88); }
+.prose-note .task-item.is-done > div { color: var(--ink-4); text-decoration: line-through; text-decoration-color: var(--ink-4); }
+
+/* Printing (or "Save as PDF") keeps the content and drops the app around it. */
+@media print {
+  nav, aside, button, form, .no-print { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .card, .hero { box-shadow: none !important; border: 0 !important; background: transparent !important; padding: 0 !important; }
+  .prose-note { max-width: none; color: #000; }
+  .prose-note .task-box { display: grid !important; }
+  .prose-note .note-img { display: block !important; }
+  main { padding: 0 !important; max-width: none !important; }
+}
+
+/* The rich note editor: looks like the note you will read, with tappable checkboxes. */
+.rich-note:empty::before,
+.rich-note:has(> p:only-child > br:only-child)::before { content: attr(data-placeholder); color: var(--ink-4); pointer-events: none; position: absolute; }
+.rich-note ul[data-task] { list-style: none; padding-left: 0; }
+.rich-note li[data-checked] { position: relative; padding-left: 1.95em; }
+.rich-note li[data-checked]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.22em;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink-4);
+  cursor: pointer;
+}
+.rich-note li[data-checked='true']::before {
+  border-color: transparent;
+  background: var(--accent) center / 62% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+.rich-note li[data-checked='true'] { color: var(--ink-4); text-decoration: line-through; }
+.rich-note .md-atom {
+  margin: 0.75em 0;
+  padding: 0.7em 0.9em;
+  border-radius: 14px;
+  border: 1px dashed var(--ink-4);
+  color: var(--ink-3);
+  font-size: 0.875rem;
+  user-select: none;
+}
+.rich-note .md-atom-inline { display: block; margin: 0.5em 0; padding: 0.4em; }
+.rich-note .md-atom-inline img { display: block; max-height: 180px; border-radius: 10px; }
+
+/* While a note is being edited the tab bar steps aside, so the keyboard and the formatting bar have the room. */
+html[data-editing] nav[aria-label='Primary'],
+html[data-editing] .tab-fade { display: none; }
+
+/* Editing a note: the page header steps aside (the title is edited in the card), giving the note the room. */
+html[data-editing] .note-head { display: none; }
+.rich-note .md-atom { position: relative; display: flex; align-items: center; gap: 0.6em; user-select: none; }
+.rich-note .md-atom-body { min-width: 0; flex: 1; }
+.rich-note .md-atom-body audio { display: block; width: 100%; height: 36px; }
+.rich-note .md-atom-body img { display: block; max-height: 180px; max-width: 100%; border-radius: 10px; }
+.rich-note .md-atom-x {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--muted);
+  color: var(--ink-2);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ------------------------------------------------------------------ Agent Studio */
+/* Each built agent has one accent. Light values read on the light surface, dark ones on the dark surface. */
+[data-agent='green'] { --agent: light-dark(#3d7a1f, #8cc152); }
+[data-agent='teal'] { --agent: light-dark(#1d756d, #4fc2b4); }
+[data-agent='blue'] { --agent: light-dark(#2d6bc4, #6aa5f0); }
+[data-agent='indigo'] { --agent: light-dark(#4651bf, #9aa2f6); }
+[data-agent='violet'] { --agent: light-dark(#7449bd, #b590f2); }
+[data-agent='rose'] { --agent: light-dark(#bb3d66, #f27ba0); }
+[data-agent='orange'] { --agent: light-dark(#b85a17, #f29a55); }
+[data-agent='amber'] { --agent: light-dark(#946000, #e6b84f); }
+[data-agent] {
+  --agent-soft: color-mix(in oklab, var(--agent) 13%, var(--surface));
+  --agent-line: color-mix(in oklab, var(--agent) 28%, transparent);
+}
+.agent-glow {
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in oklab, var(--agent) 16%, transparent), transparent 62%),
+    var(--surface);
+}
+@keyframes studio-pop {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+}
+.studio-pop { animation: studio-pop 420ms var(--ease-out-quint) both; }
+@keyframes studio-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.14); opacity: 0.05; }
+}
+.studio-breathe { animation: studio-breathe 2.4s ease-in-out infinite; }
+/* "Hear <agent>": level bars that move while its Murf intro plays. */
+@keyframes voice-bar {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+.voice-bar { transform: scaleY(0.35); transform-origin: center; }
+.voice-bar.is-playing { animation: voice-bar 0.9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .studio-pop, .studio-breathe { animation: none; }
+  .voice-bar.is-playing { animation: none; transform: scaleY(0.8); }
+}

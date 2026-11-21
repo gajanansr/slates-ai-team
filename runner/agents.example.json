@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Claude",
+    "kind": "claude",
+    "token_env": "SLATES_TOKEN_CLAUDE",
+    "allowed_tools": "mcp__slates__*",
+    "max_budget_usd": 2
+  },
+  {
+    "name": "Codex",
+    "kind": "command",
+    "token_env": "SLATES_TOKEN_CODEX",
+    "command": ["codex", "exec", "{prompt}"],
+    "_note": "UNTESTED: Codex is not installed here. Codex must have Slates set up as an MCP server itself (it gets SLATES_MCP_URL and SLATES_TOKEN as env vars). Check `codex exec --help` for the flags your version needs."
+  }
+]

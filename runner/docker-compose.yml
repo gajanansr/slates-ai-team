@@ -1,0 +1,25 @@
+# Start:            docker compose up -d --build
+# Logs:             docker compose logs -f runner
+# Log in to Claude: docker compose run --rm runner claude   (then /login, once; or set ANTHROPIC_API_KEY in .env)
+# Stop:             docker compose down
+services:
+  runner:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - runner-data:/data
+      - claude-config:/home/node/.claude-config
+      # For several agents, uncomment and set AGENTS_FILE=/app/agents.json in .env:
+      # - ./agents.json:/app/agents.json:ro
+    # Oracle's free ARM tier is small (reportedly 12 GB RAM total); keep the runner bounded.
+    mem_limit: 2g
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  runner-data:
+  claude-config:

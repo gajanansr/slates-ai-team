@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+state.json
+runner.log
+work/
+*.log
+.DS_Store

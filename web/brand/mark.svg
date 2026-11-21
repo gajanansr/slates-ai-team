@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 18 100 66">
+  <defs>
+    <linearGradient id="s-t1" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#f3fbc4"/><stop offset="0.5" stop-color="#e1f48a"/><stop offset="1" stop-color="#c8de60"/></linearGradient>
+    <linearGradient id="s-t2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9cfba"/><stop offset="1" stop-color="#99a28b"/></linearGradient>
+    <linearGradient id="s-t3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#58635d"/><stop offset="1" stop-color="#3d4742"/></linearGradient>
+    <radialGradient id="s-bg" cx="0.5" cy="0.15" r="1"><stop offset="0" stop-color="#2d3a34"/><stop offset="0.6" stop-color="#1f2a26"/><stop offset="1" stop-color="#161e1b"/></radialGradient>
+    <radialGradient id="s-glow" cx="0.5" cy="0.4" r="0.42"><stop offset="0" stop-color="#e1f48a" stop-opacity="0.14"/><stop offset="1" stop-color="#e1f48a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <polygon points="22,62 50,76 50,80.2 22,66.2" fill="#323b37"/>
+    <polygon points="50,76 78,62 78,66.2 50,80.2" fill="#29312d"/>
+    <polygon points="22,62 50,48 78,62 50,76" fill="url(#s-t3)"/>
+    <polygon points="22,48 50,62 50,66.2 22,52.2" fill="#7a836d"/>
+    <polygon points="50,62 78,48 78,52.2 50,66.2" fill="#636b58"/>
+    <polygon points="22,48 50,34 78,48 50,62" fill="url(#s-t2)"/>
+    <polyline points="22.6,48 50,61.7 77.4,48" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.7" stroke-linejoin="round"/>
+    <polygon points="22,34 50,48 50,52.2 22,38.2" fill="#a7bb4c"/>
+    <polygon points="50,48 78,34 78,38.2 50,52.2" fill="#8ea03b"/>
+    <polygon points="22,34 50,20 78,34 50,48" fill="url(#s-t1)"/>
+    <polyline points="22.6,34 50,47.7 77.4,34" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.7" stroke-linejoin="round"/>
+</svg>
