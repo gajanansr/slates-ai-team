@@ -1,8 +1,10 @@
-# Slates: a team of AI employees that talk to you and do your work
+# Slates: your AI company, in one app
 
-**Tell Slates what you need handled, and it builds you an AI employee: a real Agora voice agent with its own Murf voice, boards and routines. Your team holds standups with you in a voice call. Each agent reports in its own voice and takes your orders. When one needs a decision, it calls you.**
+**Slates is the headquarters for your AI agents.** Claude, ChatGPT, Gemini, Codex and your own custom agents all work in one shared workspace: they write your boards, hand work to each other, remember you, and ask you when they need a decision. Then Slates goes further. **It hires you new AI employees on demand, holds standups with your whole AI team in a live voice call, and phones you when something needs you.**
 
-Built at *Build with Agora*, Bengaluru, Nov 21, 2026. Track 3: AI Agents That Get Things Done.
+One app. Every agent. A team that talks to you and does your work.
+
+*Voice by Murf · Calls by Agora*
 
 ---
 
@@ -18,23 +20,40 @@ Built at *Build with Agora*, Bengaluru, Nov 21, 2026. Track 3: AI Agents That Ge
 
 ## The problem
 
-AI can now do real work: chase payments, find deals, run a small business's admin, fix code. But:
+AI can now do real work: chase payments, find deals, run a small business, ship code. But:
 
-1. **Every AI lives in its own app.** Claude, ChatGPT, Gemini and Codex each remember only themselves.
+1. **Every AI lives in its own app.** Claude, ChatGPT, Gemini and Codex each remember only themselves, and none of them knows what the others did.
 2. **You have to babysit chats.** Nothing runs while you're away.
 3. **Agents can't reach you** when they need a decision, so they stall or guess.
-4. **You can't see what they did.**
+4. **You can't see, audit or undo what they did.**
 
-## What Slates does
+## What Slates is
 
-| | |
-|---|---|
-| **Agents on demand** | Say *"manage my dairy business"*. Agent Studio builds a **Dairy Manager** in seconds: a dashboard, a milk log, customer dues, a cattle-health tracker, daily routines, reminders and a playbook. It gets its **own Murf voice** and introduces itself aloud. |
-| **Call Slates** | Tap *Call Slates* and talk. Slates (an **Agora Conversational AI** agent) reads and edits your boards, sets reminders, hands work to your agents, and can build new agents mid-conversation, through Slates' own **MCP server**, live in the call. |
-| **Standup with your AI team** | One tap. Slates hosts; each built agent reports from its own boards in its own voice. Your **real** coding agents (Claude Code, Codex CLI, Antigravity CLI) running on your laptop join too, and answer questions **in their own voices**. |
-| **A real meeting, not a chatbot** | The agents share one transcript, so they hear each other. An agent can **jump in** to add or disagree. The current speaker **yields** (Agora `interrupt`). **You always win**: start talking and every agent stops. |
-| **Agents call you** | When an agent needs a decision ("the site is down, should we revert?"), Slates rings you three ways at once: an Agora call room in the app, a real phone call (Twilio), and a Slates push. Say "go ahead" and it acts. |
-| **Agents at work** | A live board shows what every agent is doing right now: working, needs you, done or failed. |
+### 1. One workspace for every agent
+- **Bring any agent.** Slates is an **MCP server** and a **REST API** (OpenAPI). One-click OAuth connectors cover Claude, ChatGPT and any MCP client, with per-agent tokens you can limit to read-only, to specific boards, or with an expiry.
+- **14 kinds of living boards** that agents build for you: dashboards (a bento grid), metrics, charts, tables, kanban (drag cards between columns), trackers, habits, goals, countdowns, timelines, lists, links, briefs and markdown. They're grouped into **Spaces** like Money, Work and Health.
+- **Notes** with a full-screen editor, checklists and charts. **Inbox** catches anything you share from your phone, and agents file it.
+- **Today**: a generated home screen showing what needs you, what changed and who changed it, the day's brief, reminders and due payments.
+
+### 2. Agents that work as a team
+- **The Desk**: you leave instructions for any agent (`@claude fix the login bug`). Agents **hand off** work to each other and **ask you** questions, which show under "Needs you". Each one picks up exactly where the last session stopped.
+- **Shared memory**: what one agent learns about you (preferences, people, projects), every agent knows.
+- **Playbooks**: your own way of doing recurring jobs, which every agent follows.
+- **Manage your agents**: see every connected agent, its scopes and its last activity, and revoke any of them instantly.
+- **Full history and undo**: every change is versioned with who made it, and any bad write rolls back in one tap. Archiving and deleting always need your approval.
+
+### 3. Slates works while you're away
+- **Automations**: a morning brief, an evening recap, RSS and news feeds onto boards, on a schedule.
+- **Reminders and push notifications**: due-time pushes with Done or Snooze. It's an installable app (PWA) for iPhone, Android and desktop.
+- **Ask Slates**: a built-in assistant that reads and edits your workspace.
+- **The Slates runner**: your agents actually *run*. It picks up tasks from your Desk and runs Claude Code (or any CLI agent) with spend and time caps, a real browser (Playwright), GitHub tools and watchers. A live **"Agents at work"** board shows who's doing what.
+
+### 4. AI employees with voices (Agora + Murf)
+- **Agent Studio: hire an AI employee in seconds.** Say *"manage my dairy business"* and Slates designs and builds a **Dairy Manager**: a dashboard, milk log, customer dues, a cattle-health tracker, daily routines, reminders and a playbook. It gets **its own Murf voice** and introduces itself aloud.
+- **Call Slates.** Talk, and Slates (an **Agora Conversational AI** agent wired to Slates' own MCP tools) reads and edits your boards, sets reminders, hands work to your agents and builds new agents, live in the call.
+- **Talk to any agent.** Each built agent takes calls in its own voice, limited to its own boards.
+- **Standup with your AI team.** Slates hosts. Your agents report in their own voices, and your **real** coding agents (Claude Code, Codex, Antigravity, running on your machine) answer questions live. It's a **real meeting**: agents hear each other, jump in to add or disagree, and yield when interrupted, and you always have the floor.
+- **Agents call you.** When an agent needs a decision ("the site is down, should we revert?"), Slates rings you three ways at once: an Agora call room, a real phone call, and a Slates push. Say "go ahead" and it's done.
 
 Honesty rule: agents that live in other apps (ChatGPT, Gemini app, Instinct) can't be pulled into a call, because MCP is one-way. Slates narrates their work in its own voice. **Every voice you hear is a real agent.**
 
