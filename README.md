@@ -16,6 +16,13 @@ One app. Every agent. A team that talks to you and does your work.
 | **Building an agent live** | **The agent's home: Murf voice, talk to it, boards, routines** |
 | ![Building](screenshots/studio-building-desktop.png) | ![Dairy Manager](screenshots/agent-desktop.png) |
 
+| **Living boards your agents keep current** | **Landing: one slate, every agent** |
+| ![Demo boards](screenshots/demo-boards-desktop.png) | ![Landing](screenshots/landing-desktop.png) |
+| **Ask Slates** | **Automations that run on their own** |
+| ![Ask](screenshots/ask-desktop.png) | ![Automations](screenshots/automations-desktop.png) |
+| **Activity: who changed what** | |
+| ![Activity](screenshots/activity-desktop.png) | |
+
 *Screens use sample data.*
 
 ## The problem
